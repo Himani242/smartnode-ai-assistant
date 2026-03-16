@@ -10,6 +10,7 @@ embedding_model = HuggingFaceEmbeddings(
 vector_db = Chroma(
     persist_directory="vector_db",
     embedding_function=embedding_model
+    collection_name="smartnode_docs"
 )
 
 retriever = vector_db.as_retriever(search_kwargs={"k":3})
