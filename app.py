@@ -5,7 +5,7 @@ st.set_page_config(page_title="Smart Node AI Assistant")
 
 st.title("Smart Node AI Assistant")
 
-# store chat messages
+# store conversation
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -30,7 +30,6 @@ if prompt:
     # get AI response
     answer = ask_ai(prompt)
 
-    # show AI message
     with st.chat_message("assistant"):
         st.markdown(answer)
 
