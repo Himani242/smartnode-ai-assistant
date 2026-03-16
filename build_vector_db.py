@@ -72,6 +72,7 @@ vector_db = Chroma.from_documents(
     documents=chunks,
     embedding=embedding_model,
     persist_directory=VECTOR_DB_FOLDER
+    collection_name="smartnode_docs"
 )
 
 vector_db.persist()
