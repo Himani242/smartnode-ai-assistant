@@ -1,3 +1,4 @@
+import os
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -14,7 +15,8 @@ vector_db = Chroma(
 retriever = vector_db.as_retriever(search_kwargs={"k":3})
 
 llm = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash"
+    model="gemini-2.5-flash",
+    temperature=0.3
 )
 
 def ask_ai(question):
@@ -24,14 +26,14 @@ def ask_ai(question):
     context = "\n\n".join([doc.page_content for doc in docs])
 
     prompt = f"""
-    Answer based only on context.
+Answer the question using only the context below.
 
-    Context:
-    {context}
+Context:
+{context}
 
-    Question:
-    {question}
-    """
+Question:
+{question}
+"""
 
     response = llm.invoke(prompt)
 
