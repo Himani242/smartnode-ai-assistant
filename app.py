@@ -3,8 +3,15 @@ from rag_engine import ask_ai
 
 st.title("Smart Node AI Assistant")
 
-question = st.text_input("Ask a question")
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-if question:
-    answer = ask_ai(question)
-    st.write(answer)
+user_input = st.chat_input("Ask something")
+
+if user_input:
+    st.session_state.messages.append({"role": "user", "content": user_input})
+    answer = ask_ai(user_input)
+    st.session_state.messages.append({"role": "assistant", "content": answer})
+
+for msg in st.session_state.messages:
+    st.chat_message(msg["role"]).write(msg["content"])
